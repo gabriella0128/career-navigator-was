@@ -1,9 +1,25 @@
 HELP.md
 .gradle
 build/
+**/build/
+!src/**/build/
+
+
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
 
 ### STS ###
 .apt_generated
@@ -35,3 +51,17 @@ out/
 
 ### VS Code ###
 .vscode/
+
+.env
+
+upload/
+
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+logs/
+.gradle/
+generated/
+/gradle/wrapper/gradle-wrapper.jar
+/gradle/wrapper/gradle-wrapper.properties
