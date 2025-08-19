@@ -110,7 +110,7 @@ public class DashboardServiceImpl implements DashboardService {
 			.highlights(hi)
 			.build();
 
-		return CommonResponse.success("대시보드 조회 성공", returnData);
+		return CommonResponse.success("대시 보드 조회 성공", returnData);
 	}
 
 	private Highlights buildHighlightsFromEvals(List<DailyAnswerEvalDto> evals) {
