@@ -73,19 +73,19 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-def generated = 'src/main/generated'
-
-tasks.withType(JavaCompile) {
-	options.getGeneratedSourceOutputDirectory().set(file(generated))
-}
-
-sourceSets {
-	main {
-		java {
-			srcDirs += [ generated ]
-		}
-	}
-}
+//def generated = 'src/main/generated'
+//
+//tasks.withType(JavaCompile) {
+//	options.getGeneratedSourceOutputDirectory().set(file(generated))
+//}
+//
+//sourceSets {
+//	main {
+//		java {
+//			srcDirs += [ generated ]
+//		}
+//	}
+//}
 test {
 	systemProperty 'spring.profiles.active', 'local'
 }
