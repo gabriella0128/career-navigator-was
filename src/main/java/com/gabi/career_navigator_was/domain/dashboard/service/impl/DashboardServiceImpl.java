@@ -119,12 +119,13 @@ public class DashboardServiceImpl implements DashboardService {
 			.filter(s -> s!=null && !s.isBlank())
 			.findFirst().orElse("");
 
-		List<String> strengths = new ArrayList<>(), improvements = new ArrayList<>();
+		List<String> strengths = new ArrayList<>();
+		List<String> improvements = new ArrayList<>();
 		for (var e : evals) {
 			strengths.addAll(parseList(e.strength()));
 			improvements.addAll(parseList(e.improvements()));
 		}
-		return new Highlights(recent, topK(strengths,5), topK(improvements,5));
+		return new Highlights(recent, topK(strengths,3), topK(improvements,3));
 	}
 
 	private List<String> parseList(String raw) {
