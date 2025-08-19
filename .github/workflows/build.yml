@@ -1,9 +1,9 @@
 name: Backend | Build → TAR → Upload(artifact) → Notify infra
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
