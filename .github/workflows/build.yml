@@ -60,7 +60,6 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ env.FULL_IMAGE }}:v1
             ${{ env.FULL_IMAGE }}:${{ steps.meta.outputs.TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
