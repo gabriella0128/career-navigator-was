@@ -26,6 +26,13 @@ public class ResumeDataAccess {
 		return mapper.toDto(saved);
 	}
 
+	@Transactional
+	public List<ResumeDto> saveAll(List<ResumeDto> resumeDtos) {
+		List<Resume> entityList = mapper.getEntityList(resumeDtos);
+		List<Resume> savedList = repository.saveAll(entityList);
+		return mapper.getDtoList(savedList);
+	}
+
 	@Transactional(readOnly = true)
 	public boolean existsByUserIdx(Long userIdx) {
 		return repository.existsByUserIdx(userIdx);

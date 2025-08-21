@@ -1,5 +1,7 @@
 package com.gabi.career_navigator_was.domain.resume.dto.base;
 
+import java.time.LocalDateTime;
+
 import com.gabi.career_navigator_was.global.code.YnType;
 
 import lombok.Builder;
@@ -14,6 +16,7 @@ public record ResumeDto(
 	YnType useYn,
 	YnType delYn,
 	String createId,
-	String modifyId
+	String modifyId,
+	LocalDateTime createDt
 ) {
 }

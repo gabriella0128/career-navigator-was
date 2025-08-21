@@ -34,6 +34,7 @@ import com.gabi.career_navigator_was.domain.resume.dto.request.inner.ExperienceR
 import com.gabi.career_navigator_was.domain.resume.dto.request.inner.LanguageReq;
 import com.gabi.career_navigator_was.domain.resume.dto.request.inner.SkillReq;
 import com.gabi.career_navigator_was.domain.resume.dto.response.DetailResumeRes;
+import com.gabi.career_navigator_was.domain.resume.dto.response.ResumeListItem;
 import com.gabi.career_navigator_was.domain.resume.dto.response.inner.CertificateRes;
 import com.gabi.career_navigator_was.domain.resume.dto.response.inner.EducationRes;
 import com.gabi.career_navigator_was.domain.resume.dto.response.inner.ExperienceRes;
@@ -552,6 +553,49 @@ public class ResumeServiceImpl implements ResumeService {
 			.build();
 	}
 
+	@Override
+	public CommonResponse<Void> changeResume(DetailResumeReq body) {
+
+		Long userIdx = getCurrentUserIdx();
+
+		if (!Objects.isNull(body.resumeIdx())) {
+			findByIdAndCheckOwner(body.resumeIdx(), userIdx);
+		} else {
+			return CommonResponse.failure("대표 이력서 변경 실패", null);
+		}
+
+		List<ResumeDto> allResumes = resumeDataAccess.findAllByUserIdx(userIdx);
+
+		List<ResumeDto> resumeAllNList = allResumes.stream()
+			.map(resume -> resume.toBuilder().representYn(YnType.N).build())
+			.toList();
+
+		List<ResumeDto> toBeSavedResumes = resumeAllNList.stream().map(resume -> {
+			if (resume.resumeIdx().equals(body.resumeIdx())) {
+				resume = resume.toBuilder().representYn(YnType.Y).build();
+			}
+			return resume;
+		}).toList();
+
+		resumeDataAccess.saveAll(toBeSavedResumes);
+
+		return CommonResponse.success("대표 이력서 수정 성공", null);
+	}
+
+	@Override
+	public CommonResponse<List<ResumeListItem>> retrieveResumeList() {
+		Long userIdx = getCurrentUserIdx();
+
+		List<ResumeDto> allResumes = resumeDataAccess.findAllByUserIdx(userIdx);
+
+		List<ResumeListItem> returnData = allResumes.stream().map(resume -> ResumeListItem.builder()
+			.resumeIdx(resume.resumeIdx())
+			.title(resume.title())
+			.createDt(resume.createDt())
+			.build()).toList();
+
+		return CommonResponse.success("이력서 목록 조회 성공", returnData);
+	}
 
 	private List<EducationRes> mapEducations(Long resumeIdx) {
 		return educationDataAccess.findAllByResumeIdx(resumeIdx).stream()

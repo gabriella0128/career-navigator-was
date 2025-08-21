@@ -1,5 +1,7 @@
 package com.gabi.career_navigator_was.domain.resume.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,7 @@ import com.gabi.career_navigator_was.domain.resume.dto.request.UpdateSkillReq;
 import com.gabi.career_navigator_was.domain.resume.dto.request.UpdateSummaryReq;
 import com.gabi.career_navigator_was.domain.resume.dto.request.UpdateTitleReq;
 import com.gabi.career_navigator_was.domain.resume.dto.response.DetailResumeRes;
+import com.gabi.career_navigator_was.domain.resume.dto.response.ResumeListItem;
 import com.gabi.career_navigator_was.domain.resume.service.ResumeService;
 import com.gabi.career_navigator_was.global.dto.CommonResponse;
 
@@ -37,7 +40,7 @@ public class ResumeController {
 	}
 
 	@PostMapping(value = "/retrieve-resume")
-	public ResponseEntity<CommonResponse<DetailResumeRes>> retrieveResume(@RequestBody DetailResumeReq body) {
+	public ResponseEntity<CommonResponse<DetailResumeRes>> retrieveResume(@RequestBody @Valid DetailResumeReq body) {
 		return ResponseEntity.ok(resumeService.retrieveResume(body));
 	}
 
@@ -74,5 +77,15 @@ public class ResumeController {
 	@PostMapping(value = "/update-language")
 	public ResponseEntity<CommonResponse<Void>> updateLanguage(@RequestBody @Valid UpdateLanguageReq body) {
 		return ResponseEntity.ok(resumeService.updateLanguage(body));
+	}
+
+	@PostMapping(value = "/change-resume")
+	public ResponseEntity<CommonResponse<Void>> changeResume(@RequestBody @Valid DetailResumeReq body) {
+		return ResponseEntity.ok(resumeService.changeResume(body));
+	}
+
+	@PostMapping(value = "/retrieve-all-resume-list")
+	public ResponseEntity<CommonResponse<List<ResumeListItem>>> retrieveResumeList() {
+		return ResponseEntity.ok(resumeService.retrieveResumeList());
 	}
 }

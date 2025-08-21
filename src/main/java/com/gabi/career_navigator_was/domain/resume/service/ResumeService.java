@@ -12,6 +12,7 @@ import com.gabi.career_navigator_was.domain.resume.dto.request.UpdateSkillReq;
 import com.gabi.career_navigator_was.domain.resume.dto.request.UpdateSummaryReq;
 import com.gabi.career_navigator_was.domain.resume.dto.request.UpdateTitleReq;
 import com.gabi.career_navigator_was.domain.resume.dto.response.DetailResumeRes;
+import com.gabi.career_navigator_was.domain.resume.dto.response.ResumeListItem;
 import com.gabi.career_navigator_was.global.dto.CommonResponse;
 
 public interface ResumeService {
@@ -34,4 +35,8 @@ public interface ResumeService {
 	CommonResponse<Void> updateLanguage(UpdateLanguageReq body);
 
 	DetailResumeRes buildDetailResume(ResumeDto resumeDto);
+
+	CommonResponse<Void> changeResume(DetailResumeReq body);
+
+	CommonResponse<List<ResumeListItem>> retrieveResumeList();
 }
